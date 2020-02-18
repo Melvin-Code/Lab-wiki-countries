@@ -1,35 +1,40 @@
 import React, { Component } from 'react';
-
+import { Link } from 'react-router-dom'
 class CountryDetails extends Component {
-
+  state = {
+    allcountries: ''
+  }
 
     findDetails = () => {
-        console.log('country detail cca3:',this.props.match.params.hippopotamus, this.props.countries)
-        let theCountry = this.props.countries.find(eachCountry => {
-            return eachCountry.cca3 === this.props.match.params.hippopotamus
-        })
-        console.log(theCountry)
+      
+      console.log('country detail cca3:',this.props.match.params.hippopotamus, this.props.countries)
+
+        
         
     }
 
 
 
     render() {
+
+      let theCountry = this.props.countries.find(eachCountry => {
+        return eachCountry.cca3 === this.props.match.params.hippopotamus
+    })
+      console.log(this)
         return (
             <div className="col-7">
 
-            {this.findDetails()}
-            <h1>France</h1>
+            <h1>{theCountry.name.common}</h1>
             <table className="table">
               <thead></thead>
               <tbody>
                 <tr>
                   <td>Capital</td>
-                  <td>Paris</td>
+                  <td>{theCountry.capital}</td>
                 </tr>
                 <tr>
                   <td>Area</td>
-                  <td>551695 km
+                  <td>{theCountry.area}km
            <sup>2</sup>
                   </td>
                 </tr>
@@ -37,14 +42,10 @@ class CountryDetails extends Component {
                   <td>Borders</td>
                   <td>
                     <ul>
-                      <li><a href="/AND">Andorra</a></li>
-                      <li><a href="/BEL">Belgium</a></li>
-                      <li><a href="/DEU">Germany</a></li>
-                      <li><a href="/ITA">Italy</a></li>
-                      <li><a href="/LUX">Luxembourg</a></li>
-                      <li><a href="/MCO">Monaco</a></li>
-                      <li><a href="/ESP">Spain</a></li>
-                      <li><a href="/CHE">Switzerland</a></li>
+                      {theCountry.borders.map((each)=>{
+                        return <li><Link to={each}>{each}</Link></li>
+                      })}
+                      
                     </ul>
                   </td>
                 </tr>
